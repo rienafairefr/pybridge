@@ -10,12 +10,12 @@ from setuptools import setup
 NAME = "pybridge"
 VERSION = os.environ.get('TRAVIS_TAG', os.environ.get('TAG_NAME', 'dev'))
 
-REQUIRES = ["sqlalchemy"]
+REQUIRES = ["marshmallow"]
 
 setup(
     name=NAME,
     version=VERSION,
-    long_description="""This is pybridge, SQLAlchemy and API to use the Fintech Bridge API https://bridgeapi.io/
+    long_description="""This is pybridge, client to use the Fintech Bridge API https://bridgeapi.io/
 
 """,
     long_description_content_type='text/markdown',

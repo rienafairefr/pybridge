@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+python-dotenv = "*"
+
+[packages]
+marshmallow = "==2.16.0"
+python-dateutil = "*"
+requests = {extras = ["secure"], version = "*"}
+marshmallow-sqlalchemy = "*"
+
+[requires]
+python_version = "3.6"

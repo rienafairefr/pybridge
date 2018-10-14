@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
-from pybridge.pybridge.models import Base
-from pybridge.pybridge.models.types import ResourceMixin
+from pybridge.models import Base
+from pybridge.models.types import ResourceMixin
 
 
 class Bank(Base, ResourceMixin):
