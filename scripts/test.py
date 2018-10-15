@@ -1,22 +1,20 @@
 import os
 
-from pybridge.api import BridgeClient, BridgeConfig, BridgeUserCredentials
+from pybridge import ApiClient
+from pybridge.api import DefaultApi
+from pybridge.configuration import Configuration
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 
 
-config = BridgeConfig(os.environ['BRIDGE_ID'], os.environ['BRIDGE_SECRET'])
-client = BridgeClient(config)
+config = Configuration()
+config.api_key['client_id'] = os.environ['BRIDGE_ID']
+config.api_key['client_secret'] = os.environ['BRIDGE_SECRET']
+client = ApiClient(config)
+client.default_headers['Bankin-Version'] = '2018-06-15'
+api = DefaultApi(client)
 
-#client.delete_users()
+api.delete_all_users()
 
-credentials = BridgeUserCredentials(email='user@bridge.io', password='0123456789')
-
-#client.create_user(credentials)
-user = client.authenticate_user(credentials)
-
-print(client.get_clients())
-
-
-
+print(api.create_user("user@bridgeapi.io", '0123456789'))
