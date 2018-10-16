@@ -1,10 +1,12 @@
-# InlineResponse200
+# InlineResponse2001
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**resources** | [**list[User]**](User.md) |  | [optional] 
-**pagination** | [**InlineResponse200Pagination**](InlineResponse200Pagination.md) |  | [optional] 
+**uuid** | **str** |  | [optional] 
+**email** | **str** |  | [optional] 
+**resource_type** | **str** |  | [optional] 
+**resource_url** | **str** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

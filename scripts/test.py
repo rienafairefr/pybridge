@@ -1,5 +1,6 @@
 import os
 
+import pybridge
 from pybridge import ApiClient
 from pybridge.api import DefaultApi
 from pybridge.configuration import Configuration
@@ -12,9 +13,10 @@ config = Configuration()
 config.api_key['client_id'] = os.environ['BRIDGE_ID']
 config.api_key['client_secret'] = os.environ['BRIDGE_SECRET']
 client = ApiClient(config)
-client.default_headers['Bankin-Version'] = '2018-06-15'
+client.set_default_header('Bankin-Version', '2018-06-15')
+client.set_default_header('default_headers', 'pybridge Client' + pybridge.__version__)
 api = DefaultApi(client)
 
 api.delete_all_users()
 
-print(api.create_user("user@bridgeapi.io", '0123456789'))
+print(api.create_user("user@gmail.com", '0123456789'))

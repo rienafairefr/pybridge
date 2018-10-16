@@ -1,3 +1,28 @@
+
+TAG_NAME:=${TAG_NAME}
+TRAVIS_TAG:=${TRAVIS_TAG}
+TRAVIS_BRANCH:=${TRAVIS_BRANCH}
+VERSION ?= $(if $(TRAVIS_TAG),$(TRAVIS_TAG),$(if $(TAG_NAME),$(TAG_NAME),dev))
+
+deploy_pypi:
+ifdef VERSION
+	rm -rf dist
+
+	python3 api/setup.py sdist bdist_wheel
+
+	twine upload -u ${PYPI_USER} -p ${PYPI_PASSWORD} dist/*
+else
+	@echo "not tagged"
+endif
+
+init:
+	pip install pipenv
+	pipenv install --dev
+
+test:
+	pipenv run py.test tests
+
+
 generate_api:
 	docker run --rm --user `id -u`:`id -g` -v ${PWD}:/local openapitools/openapi-generator-cli:v3.2.2 \
 	           generate -i /local/swagger.yaml \

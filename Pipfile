@@ -16,6 +16,8 @@ pluggy = ">=0.3.1"
 py = ">=1.4.31"
 randomize = ">=0.13"
 pybridge = {editable = true, path = "api"}
+python-dotenv = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.6"

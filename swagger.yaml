@@ -57,20 +57,25 @@ paths:
       responses:
         '200':
           description: paginated list of users
-          resources:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-          pagination:
-            type: object
-            properties:
-              previous_uri:
-                type: string
-              next_uri:
-                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  pagination:
+                    type: object
+                    properties:
+                      previous_uri:
+                        type: string
+                      next_uri:
+                        type: string
   /users/{uuid}:
     put:
-      summary: edit User's credentials
+      summary: edit User credentials
       operationId: editUser
       security:
       - ClientId:     []
@@ -79,9 +84,31 @@ paths:
         - in: query
           required: true
           name: current_password
+          schema:
+            type: string
         - in: query
           required: true
           name: new_password
+          schema:
+            type: string
+      responses:
+        '200':
+          description: edit User credentials response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                    example: 79c8961c-bdf7-11e5-88a3-4f2c2aec0665
+                  email:
+                    type: string
+                  resource_type:
+                    type: string
+                  resource_url:
+                    type: string
     delete:
       summary: delete a User
       operationId: deleteUser
@@ -92,6 +119,11 @@ paths:
         - in: query
           required: true
           name: password
+          schema:
+            type: string
+      responses:
+        '204':
+          description: delete User credentials response
   /users/me/email/confirmation:
     get:
       summary: check Email Validation
@@ -99,6 +131,35 @@ paths:
       security:
       - ClientId:     []
         ClientSecret: []
+      responses:
+        '200':
+          description: check Email Validation response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  is_confirmed:
+                    type: boolean
+  /connect/users/email/confirmation/url:
+    get:
+      summary: get the URL for email validation
+      operationId: getEmailValidationUrl
+      security:
+      - ClientId:     []
+        ClientSecret: []
+      responses:
+        '200':
+          description: email Validation Url response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  redirect_url:
+                    type: string
   /banks:
     get:
       summary: get All banks
@@ -108,21 +169,23 @@ paths:
         ClientSecret: []
       responses:
         '200':
-          application/json:
-            schema:
-              type: object
-              properties:
-                resources:
-                  type: array
-                  items:
-                    $ref : '#/components/schemas/ParentBanks'
-                pagination:
-                  type: object
-                  properties:
-                    previous_url:
-                      type: string
-                    next_uri:
-                      type: string
+          description: Paginated list of banks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resources:
+                    type: array
+                    items:
+                      $ref : '#/components/schemas/ParentBanks'
+                  pagination:
+                    type: object
+                    properties:
+                      previous_uri:
+                        type: string
+                      next_uri:
+                        type: string
 
   /authenticate:
     post:
@@ -208,7 +271,8 @@ components:
           type: string
         banks:
           type: array
-          items: '#/components/schemas/Bank'
+          items:
+            $ref: '#/components/schemas/Bank'
     Bank:
       type: object
       properties:
@@ -227,7 +291,7 @@ components:
         form:
           type: array
           items:
-            $ref '#/components/schemas/BankForm'
+            $ref: '#/components/schemas/BankForm'
     BankForm:
       type: object
       properties:

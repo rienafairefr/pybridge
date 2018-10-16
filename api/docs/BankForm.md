@@ -1,10 +1,12 @@
-# InlineResponse200
+# BankForm
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**resources** | [**list[User]**](User.md) |  | [optional] 
-**pagination** | [**InlineResponse200Pagination**](InlineResponse200Pagination.md) |  | [optional] 
+**label** | **str** |  | [optional] 
+**type** | **str** |  | [optional] 
+**is_num** | **str** |  | [optional] 
+**max_length** | [**Int**](Int.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
