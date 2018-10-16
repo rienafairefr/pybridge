@@ -15,6 +15,12 @@ paths:
       security:
       - ClientId:     []
         ClientSecret: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/emptyBody'
+        required: false
       parameters:
         - in: query
           name: email
@@ -32,6 +38,7 @@ paths:
             type: string
             minLength: 6
             maxLength: 255
+
       responses:
         '200':
           description: created User
@@ -304,4 +311,6 @@ components:
         isNum:
           type: string
         maxLength:
-          type: int
+          type: integer
+    emptyBody:
+      type: object

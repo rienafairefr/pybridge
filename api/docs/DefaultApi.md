@@ -128,7 +128,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_user**
-> User create_user(email, password)
+> User create_user(email, password, empty_body=empty_body)
 
 Create a User
 
@@ -155,10 +155,11 @@ configuration.api_key['client_secret'] = 'YOUR_API_KEY'
 api_instance = pybridge.DefaultApi(pybridge.ApiClient(configuration))
 email = 'email_example' # str | User's email address.
 password = 'password_example' # str | User's password. Must be at least 6 characters and less than 255 characters. 
+empty_body = pybridge.EmptyBody() # EmptyBody |  (optional)
 
 try:
     # Create a User
-    api_response = api_instance.create_user(email, password)
+    api_response = api_instance.create_user(email, password, empty_body=empty_body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->create_user: %s\n" % e)
@@ -170,6 +171,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **email** | **str**| User&#39;s email address. | 
  **password** | **str**| User&#39;s password. Must be at least 6 characters and less than 255 characters.  | 
+ **empty_body** | [**EmptyBody**](EmptyBody.md)|  | [optional] 
 
 ### Return type
 
@@ -181,7 +183,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

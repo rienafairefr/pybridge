@@ -17,6 +17,7 @@ from __future__ import absolute_import
 from pybridge.models.bank import Bank
 from pybridge.models.bank_country import BankCountry
 from pybridge.models.bank_form import BankForm
+from pybridge.models.empty_body import EmptyBody
 from pybridge.models.inline_response200 import InlineResponse200
 from pybridge.models.inline_response2001 import InlineResponse2001
 from pybridge.models.inline_response2002 import InlineResponse2002

@@ -237,6 +237,7 @@ class DefaultApi(object):
         :param async_req bool
         :param str email: User's email address. (required)
         :param str password: User's password. Must be at least 6 characters and less than 255 characters.  (required)
+        :param EmptyBody empty_body:
         :return: User
                  If the method is called asynchronously,
                  returns the request thread.
@@ -259,6 +260,7 @@ class DefaultApi(object):
         :param async_req bool
         :param str email: User's email address. (required)
         :param str password: User's password. Must be at least 6 characters and less than 255 characters.  (required)
+        :param EmptyBody empty_body:
         :return: User
                  If the method is called asynchronously,
                  returns the request thread.
@@ -266,7 +268,7 @@ class DefaultApi(object):
 
         local_var_params = locals()
 
-        all_params = ['email', 'password']  # noqa: E501
+        all_params = ['email', 'password', 'empty_body']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -311,8 +313,14 @@ class DefaultApi(object):
         local_var_files = {}
 
         body_params = None
+        if 'empty_body' in local_var_params:
+            body_params = local_var_params['empty_body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
             ['application/json'])  # noqa: E501
 
         # Authentication setting

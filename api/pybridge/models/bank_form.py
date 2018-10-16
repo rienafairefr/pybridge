@@ -34,7 +34,7 @@ class BankForm(object):
         'label': 'str',
         'type': 'str',
         'is_num': 'str',
-        'max_length': 'Int'
+        'max_length': 'int'
     }
 
     attribute_map = {
@@ -131,7 +131,7 @@ class BankForm(object):
 
 
         :return: The max_length of this BankForm.  # noqa: E501
-        :rtype: Int
+        :rtype: int
         """
         return self._max_length
 
@@ -141,7 +141,7 @@ class BankForm(object):
 
 
         :param max_length: The max_length of this BankForm.  # noqa: E501
-        :type: Int
+        :type: int
         """
 
         self._max_length = max_length

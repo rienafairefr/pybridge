@@ -98,6 +98,7 @@ Class | Method | HTTP request | Description
  - [Bank](docs/Bank.md)
  - [BankCountry](docs/BankCountry.md)
  - [BankForm](docs/BankForm.md)
+ - [EmptyBody](docs/EmptyBody.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
  - [InlineResponse2002](docs/InlineResponse2002.md)
