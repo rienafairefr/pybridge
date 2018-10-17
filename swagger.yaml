@@ -74,12 +74,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/User'
                   pagination:
-                    type: object
-                    properties:
-                      previous_uri:
-                        type: string
-                      next_uri:
-                        type: string
+                    $ref: '#/components/schemas/Pagination'
   /users/{uuid}:
     put:
       summary: edit User credentials
@@ -104,18 +99,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  uuid:
-                    type: string
-                    format: uuid
-                    example: 79c8961c-bdf7-11e5-88a3-4f2c2aec0665
-                  email:
-                    type: string
-                  resource_type:
-                    type: string
-                  resource_url:
-                    type: string
+                $ref: '#/components/schemas/editUserCredentialsResponse'
     delete:
       summary: delete a User
       operationId: deleteUser
@@ -193,7 +177,24 @@ paths:
                         type: string
                       next_uri:
                         type: string
-
+  /connect/items/add/url:
+    get:
+      summary: Returns the URL to Bridge's Connect funnel for adding an item
+      operationId: connect
+      security:
+      - ClientId:     []
+        ClientSecret: []
+        Authorization: []
+      responses:
+        '200':
+          description: the redirect_url
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  redirect_url:
+                    type: string
   /authenticate:
     post:
       summary: Authenticate a User
@@ -201,6 +202,11 @@ paths:
       security:
         - ClientId:     []
           ClientSecret: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/emptyBody'
       parameters:
         - name: email
           in: query
@@ -224,16 +230,44 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  user:
-                    $ref: '#/components/schemas/User'
-                  access_token:
-                    type: string
-                  expires_at:
-                    type: string
-                    format: datetime
-                    example: "2016-05-06T11:08:25.040Z"
+                $ref: '#/components/schemas/AuthenticatedUser'
+  /accounts/{id}:
+    get:
+      summary: get User Account
+      operationId: getAccount
+      security:
+      - ClientId:     []
+        ClientSecret: []
+        Authorization: []
+      parameters:
+      - name: id
+        description: accountId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+  /accounts:
+    get:
+      summary: get User Accounts
+      operationId: getAccounts
+      security:
+      - ClientId:     []
+        ClientSecret: []
+        Authorization: []
+      responses:
+        '200':
+          description: list of account resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResources'
 
 components:
   securitySchemes:
@@ -245,21 +279,126 @@ components:
       type: apiKey
       in: query
       name: client_secret
+    Authorization:
+      type: apiKey
+      in: header
+      name: authorization
   schemas:
-    User:
+    editUserCredentialsResponses:
+      allOf:
+        - type: object
+          properties:
+            uuid:
+              type: string
+              format: uuid
+              example: 79c8961c-bdf7-11e5-88a3-4f2c2aec0665
+            email:
+              type: string
+        - $ref: '#/components/schemas/Response'
+    AccountResources:
       type: object
       properties:
-        uuid:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+    Account:
+      allOf:
+        - $ref: '#/components/schemas/Resource'
+        - type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            balance:
+              type: integer
+            status:
+              type: integer
+            item:
+              $ref: '#/components/schemas/Resource'
+            bank:
+              $ref: '#/components/schemas/Resource'
+            last_refresh_date:
+              type: string
+              format: date-time
+            loan_details:
+              $ref: '#/components/schemas/LoanDetails'
+            saving_details:
+          $ref: '#/components/schemas/SavingDetails'
+    SavingsDetails:
+      type: object
+      properties:
+        opening_date:
           type: string
-          format: uuid
-          example: 79c8961c-bdf7-11e5-88a3-4f2c2aec0665
-        email:
+          format: date
+        interest_rate:
+          type: double
+        ceiling:
+          type: double
+    LoanDetails:
+      type: object
+      properties:
+        next_payment_date:
           type: string
-          example: john.doe@email.com
+          format: date
+        next_payment_amount:
+          type: integer
+        maturity_date:
+          type: string
+          format: date
+        opening_date:
+          type: string
+          format: date
+        interest_rate:
+          type: double
+        type:
+          type: string
+        borrowed_capital:
+          type: integer
+        repaid_capital:
+          type: integer
+        remaining_capital:
+          type: integer
+    Resource:
+      type: object
+      properties:
         resource_type:
           type: string
         resource_url:
           type: string
+    Pagination:
+      type: object
+      properties:
+        previous_uri:
+          type: string
+        next_uri:
+          type: string
+    AuthenticatedUser:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        access_token:
+          type: string
+        expires_at:
+          type: string
+          format: datetime
+          example: "2016-05-06T11:08:25.040Z"
+    User:
+      allOf:
+        - $ref: '#/components/schemas/Resource'
+        - type: object
+          properties:
+            uuid:
+              type: string
+              format: uuid
+              example: 79c8961c-bdf7-11e5-88a3-4f2c2aec0665
+            email:
+              type: string
+              example: john.doe@email.com
     BankCountry:
       type: object
       properties:
@@ -281,24 +420,22 @@ components:
           items:
             $ref: '#/components/schemas/Bank'
     Bank:
-      type: object
-      properties:
-        id:
-          type: integer
-        resource_uri:
-          type: string
-        resource_type:
-          type: string
-        name:
-          type: string
-        country_code:
-          type: string
-        automatic_refresh:
-          type: boolean
-        form:
-          type: array
-          items:
-            $ref: '#/components/schemas/BankForm'
+      allOf:
+        - $ref: '#/components/schemas/Resource'
+        - type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            country_code:
+              type: string
+            automatic_refresh:
+              type: boolean
+            form:
+              type: array
+              items:
+                $ref: '#/components/schemas/BankForm'
     BankForm:
       type: object
       properties:

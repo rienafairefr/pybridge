@@ -5,8 +5,6 @@ from pybridge import ApiClient
 from pybridge.api import DefaultApi
 from pybridge.configuration import Configuration
 from dotenv import load_dotenv, find_dotenv
-import http
-http.client.HTTPConnection.debuglevel=5
 
 load_dotenv(find_dotenv())
 
@@ -20,6 +18,24 @@ client.set_default_header('default_headers', 'pybridge Client' + pybridge.__vers
 client.set_default_header('Accept', '*/*')
 api = DefaultApi(client)
 
-api.delete_all_users()
+# api.delete_all_users()
 
-print(api.create_user("new_user@gmail.com", '0123456789', empty_body={}))
+user = ("new_user@gmail.com", '0123456789')
+
+# print(api.create_user(*user, empty_body={}))
+
+authenticated = api.authenticate_user(*user, empty_body={})
+
+access_token = authenticated.access_token
+
+config.api_key['authorization'] = access_token
+config.api_key_prefix['authorization']= 'Bearer'
+
+print(api.connect())
+
+# do the connect,
+# redirected to the /redirect url
+# e.g. http://localhost:5000/redirect?item_id=2384385&user_uuid=094b4d5e-d15a-4cb6-b98e-23757d417b03
+
+print(api.get_accounts())
+print(api.get_account(12655088))

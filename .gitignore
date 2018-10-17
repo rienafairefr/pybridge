@@ -67,6 +67,8 @@ target/
 \.env
 
 api/
+api/*
+api/*/
 !api/pybridge/enums.py
 !api/pybridge/bridge_api.py
 !api/.openapi-generator-ignore
