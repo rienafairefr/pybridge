@@ -1,5 +1,4 @@
 openapi: 3.0.0
-# Added by API Auto Mocking Plugin
 servers:
   - description: Bankin bridgeapi.io server
     url: https://sync.bankin.com/v2
@@ -268,7 +267,143 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountResources'
-
+  /transactions/{id}:
+    get:
+      summary: Get Transaction
+      operationId: getTransaction
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      security:
+      - ClientId:     []
+        ClientSecret: []
+        Authorization: []
+      responses:
+        '200':
+          description: Single transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+  /accounts/{id}/transactions:
+    get:
+      summary: List Transactions By Account
+      operationId: getAccountTransactions
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      security:
+      - ClientId:     []
+        ClientSecret: []
+        Authorization: []
+      responses:
+        '200':
+          description: list of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsList'
+  /accounts/{id}/transactions/updated:
+    get:
+      summary: List Updated Transactions By Account
+      operationId: getUpdatedAccountTransactions
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      security:
+      - ClientId:     []
+        ClientSecret: []
+        Authorization: []
+      responses:
+        '200':
+          description: list of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsList'
+  /transactions:
+    get:
+      summary: List Transactions
+      operationId: getTransactions
+      security:
+      - ClientId:     []
+        ClientSecret: []
+        Authorization: []
+      parameters:
+      - in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: list of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsList'
+  /transactions/updated:
+    get:
+      summary: List Updated Transactions
+      operationId: getUpdatedTransactions
+      security:
+      - ClientId:     []
+        ClientSecret: []
+        Authorization: []
+      parameters:
+      - in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: since
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: list of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsList'
+  /categories:
+    get:
+      summary: List Categories
+      operationId: getCategories
+      security:
+      - ClientId:     []
+        ClientSecret: []
+      responses:
+        '200':
+          description: list of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriessList'
 components:
   securitySchemes:
     ClientId:
@@ -284,6 +419,64 @@ components:
       in: header
       name: authorization
   schemas:
+    CategoriesList:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+    Category:
+      allOf:
+      - $ref: '#/components/schemas/Resource'
+      - type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          categories:
+            type: array
+            items:
+              $ref: '#/components/schemas/Category'
+    TransactionsList:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    Transaction:
+      allOf:
+        - $ref: '#/components/schemas/Resource'
+        - type: object
+          properties:
+            id:
+              type: integer
+            description:
+              type: string
+            raw_descrtiption:
+              type: string
+            amount:
+              type: double
+            date:
+              type: string
+              format: date
+            updated_at:
+              type: string
+              format: datetime
+            is_deleted:
+              type: boolean
+            category:
+              $ref: '#/components/schemas/Resource'
+            account:
+              $ref: '#/components/schemas/Resource'
+
+
     editUserCredentialsResponses:
       allOf:
         - type: object
@@ -367,7 +560,7 @@ components:
       properties:
         resource_type:
           type: string
-        resource_url:
+        resource_uri:
           type: string
     Pagination:
       type: object

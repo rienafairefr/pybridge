@@ -23,7 +23,7 @@ test:
 	pipenv run py.test tests
 
 
-generate_api:
+api: swagger.yaml
 	docker run --rm --user `id -u`:`id -g` -v ${PWD}:/local openapitools/openapi-generator-cli:v3.2.2 \
 	           generate -i /local/swagger.yaml \
 	           --git-user-id rienafairefr \
