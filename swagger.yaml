@@ -75,6 +75,13 @@ paths:
                   pagination:
                     $ref: '#/components/schemas/Pagination'
   /users/{uuid}:
+    parameters:
+      - in: path
+        required: true
+        name: uuid
+        schema:
+          type: string
+          format: uuid
     put:
       summary: edit User credentials
       operationId: editUser
@@ -231,6 +238,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/AuthenticatedUser'
   /accounts/{id}:
+    parameters:
+      - name: id
+        description: accountId
+        in: path
+        required: true
+        schema:
+          type: integer
     get:
       summary: get User Account
       operationId: getAccount
@@ -238,13 +252,6 @@ paths:
       - ClientId:     []
         ClientSecret: []
         Authorization: []
-      parameters:
-      - name: id
-        description: accountId
-        in: path
-        required: true
-        schema:
-          type: integer
       responses:
         '200':
           description: account details
@@ -268,15 +275,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/AccountResources'
   /transactions/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
     get:
       summary: Get Transaction
       operationId: getTransaction
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
       security:
       - ClientId:     []
         ClientSecret: []
@@ -289,15 +296,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Transaction'
   /accounts/{id}/transactions:
-    get:
-      summary: List Transactions By Account
-      operationId: getAccountTransactions
-      parameters:
+    parameters:
       - in: path
         name: id
         required: true
         schema:
           type: integer
+    get:
+      summary: List Transactions By Account
+      operationId: getAccountTransactions
       security:
       - ClientId:     []
         ClientSecret: []
@@ -310,15 +317,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/TransactionsList'
   /accounts/{id}/transactions/updated:
-    get:
-      summary: List Updated Transactions By Account
-      operationId: getUpdatedAccountTransactions
-      parameters:
+    parameters:
       - in: path
         name: id
         required: true
         schema:
           type: integer
+    get:
+      summary: List Updated Transactions By Account
+      operationId: getUpdatedAccountTransactions
+      parameters:
       - in: query
         name: before
         required: false
@@ -501,7 +509,8 @@ components:
             raw_descrtiption:
               type: string
             amount:
-              type: double
+              type: number
+              format: double
             date:
               type: string
               format: date
@@ -514,7 +523,7 @@ components:
               $ref: '#/components/schemas/Resource'
             account:
               $ref: '#/components/schemas/Resource'
-    editUserCredentialsResponses:
+    editUserCredentialsResponse:
       allOf:
         - type: object
           properties:
@@ -565,9 +574,11 @@ components:
           type: string
           format: date
         interest_rate:
-          type: double
+          type: number
+          format: double
         ceiling:
-          type: double
+          type: number
+          format: dbouel
     LoanDetails:
       type: object
       properties:
@@ -583,7 +594,8 @@ components:
           type: string
           format: date
         interest_rate:
-          type: double
+          type: number
+          format: double
         type:
           type: string
         borrowed_capital:
@@ -681,3 +693,16 @@ components:
           type: integer
     emptyBody:
       type: object
+    ParentBanks:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'BNP'
+        logo_url:
+          type: string
+          example: 'https://web.bankin.com/img/banks-logo/350_bnp.png'
+        banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'

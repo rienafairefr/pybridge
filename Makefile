@@ -3,6 +3,7 @@ TAG_NAME:=${TAG_NAME}
 TRAVIS_TAG:=${TRAVIS_TAG}
 TRAVIS_BRANCH:=${TRAVIS_BRANCH}
 VERSION ?= $(if $(TRAVIS_TAG),$(TRAVIS_TAG),$(if $(TAG_NAME),$(TAG_NAME),dev))
+OPENAPIGEN_VERSION ?= 3.3.4
 
 deploy_pypi:
 ifdef VERSION
@@ -24,7 +25,7 @@ test:
 
 
 api: swagger.yaml
-	docker run --rm --user `id -u`:`id -g` -v ${PWD}:/local openapitools/openapi-generator-cli:v3.2.2 \
+	docker run --rm --user `id -u`:`id -g` -v ${PWD}:/local openapitools/openapi-generator-cli:${OPENAPIGEN_VERSION} \
 	           generate -i /local/swagger.yaml \
 	           --git-user-id rienafairefr \
 	           --git-repo-id pybridge \
