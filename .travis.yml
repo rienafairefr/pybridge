@@ -10,7 +10,7 @@ python:
 install:
 - make api
 - pip install pipenv tox-pipenv
-scripts:
+script:
 - tox
 after_success:
 - make deploy_pypi
