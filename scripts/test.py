@@ -33,16 +33,16 @@ access_token = authenticated.access_token
 config.api_key['authorization'] = access_token
 config.api_key_prefix['authorization']= 'Bearer'
 
-#print(api.connect())
+# print(api.connect())
 
 # do the connect,
 # redirected to the /redirect url
 # e.g. http://localhost:5000/redirect?item_id=2384385&user_uuid=094b4d5e-d15a-4cb6-b98e-23757d417b03
 
-#print(api.get_accounts())
-#print(api.get_account(12655088))
+# print(api.get_accounts())
+# print(api.get_account(12655088))
 
 print(api.get_updated_transactions(since=(datetime.utcnow() - timedelta(days=5)).isoformat()))
 
-#print(api.get_transaction(38000036919216))
+# print(api.get_transaction(38000036919216))
 

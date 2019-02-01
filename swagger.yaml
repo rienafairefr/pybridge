@@ -319,6 +319,34 @@ paths:
         required: true
         schema:
           type: integer
+      - in: query
+        name: before
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: since
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: until
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          default: 50
       security:
       - ClientId:     []
         ClientSecret: []
@@ -367,6 +395,11 @@ paths:
         Authorization: []
       parameters:
       - in: query
+        name: before
+        required: false
+        schema:
+          type: string
+      - in: query
         name: after
         required: false
         schema:
@@ -376,7 +409,13 @@ paths:
         required: false
         schema:
           type: string
-          format: date-time
+          format: date
+      - in: query
+        name: until
+        required: false
+        schema:
+          type: string
+          format: date
       - in: query
         name: limit
         required: false
@@ -399,11 +438,11 @@ paths:
         ClientSecret: []
       responses:
         '200':
-          description: list of transactions
+          description: list of categories
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoriessList'
+                $ref: '#/components/schemas/CategoriesList'
 components:
   securitySchemes:
     ClientId:
@@ -475,8 +514,6 @@ components:
               $ref: '#/components/schemas/Resource'
             account:
               $ref: '#/components/schemas/Resource'
-
-
     editUserCredentialsResponses:
       allOf:
         - type: object
