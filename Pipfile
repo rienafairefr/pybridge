@@ -18,6 +18,3 @@ randomize = ">=0.13"
 pybridge = {editable = true, path = "api"}
 python-dotenv = "*"
 pytest = "*"
-
-[requires]
-python_version = "3.6"
