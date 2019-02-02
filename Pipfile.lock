@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "14c96c1664e0c6a67155eaac77696102ebafde6908f0964c176357ae4678dbd1"
+            "sha256": "bbec24cc1c882ce5f5e6092ce04631718826c85ca19049c1ce07056db6bfc0e3"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -61,14 +61,6 @@
                 "sha256:ca4be454458f9dec299268d472aaa5a11f67a4ff70093396e1ceae9c76cf4bbb"
             ],
             "version": "==18.2.0"
-        },
-        "certifi": {
-            "hashes": [
-                "sha256:47f9c83ef4c0c621eaef743f133f09fa8a74a9b75f037e8624f83bd1b6626cb7",
-                "sha256:993f830721089fef441cdfeb4b2c8c9df86f0c63239f06bd025a76a7daddb033"
-            ],
-            "index": "pypi",
-            "version": "==2018.11.29"
         },
         "coverage": {
             "hashes": [
@@ -140,10 +132,6 @@
             "index": "pypi",
             "version": "==1.7.0"
         },
-        "pybridge": {
-            "editable": true,
-            "path": "api"
-        },
         "pytest": {
             "hashes": [
                 "sha256:65aeaa77ae87c7fc95de56285282546cfa9c886dc8e5dc78313db1c25e21bc07",
@@ -151,14 +139,6 @@
             ],
             "index": "pypi",
             "version": "==4.2.0"
-        },
-        "python-dateutil": {
-            "hashes": [
-                "sha256:063df5763652e21de43de7d9e00ccf239f953a832941e37be541614732cdfc93",
-                "sha256:88f9287c0174266bb0d8cedd395cfba9c58e87e5ad86b2ce58859bc11be3cf02"
-            ],
-            "index": "pypi",
-            "version": "==2.7.5"
         },
         "python-dotenv": {
             "hashes": [
@@ -183,14 +163,6 @@
             ],
             "index": "pypi",
             "version": "==1.12.0"
-        },
-        "urllib3": {
-            "hashes": [
-                "sha256:61bf29cada3fc2fbefad4fdf059ea4bd1b4a86d2b6d15e1c7c0b582b9752fe39",
-                "sha256:de9529817c93f27c8ccbfead6985011db27bd0ddfcdb2d86f3f663385c6a9c22"
-            ],
-            "index": "pypi",
-            "version": "==1.24.1"
         }
     }
 }

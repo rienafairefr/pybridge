@@ -9,9 +9,8 @@ python:
 - 2.7
 install:
 - make api
-- pip install pipenv tox-pipenv
 script:
-- tox
+- tox --workdir api
 after_success:
 - make deploy_pypi
 deploy:
