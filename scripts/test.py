@@ -2,10 +2,10 @@ import hashlib
 import os
 from datetime import datetime, timedelta
 
-import pybridge
-from pybridge import ApiClient
-from pybridge.bridge_api import BridgeApi
-from pybridge.configuration import Configuration
+import bridge
+from bridge import ApiClient
+from bridge.bridge_api import BridgeApi
+from bridge.configuration import Configuration
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
