@@ -9,7 +9,7 @@ deploy_pypi:
 ifdef VERSION
 	rm -rf dist
 
-	python3 api/setup.py sdist bdist_wheel
+	python api/setup.py sdist bdist_wheel
 
 	twine upload -u ${PYPI_USER} -p ${PYPI_PASSWORD} dist/*
 else
