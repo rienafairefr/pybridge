@@ -24,7 +24,7 @@ test:
 	pipenv run py.test tests
 
 
-api: swagger.yaml
+api: swagger.yaml Makefile
 	docker run --rm --user `id -u`:`id -g` -v ${PWD}:/local openapitools/openapi-generator-cli:${OPENAPIGEN_VERSION} \
 	           generate -i /local/swagger.yaml \
 	           --git-user-id rienafairefr \

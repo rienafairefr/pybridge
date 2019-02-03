@@ -183,6 +183,53 @@ paths:
                         type: string
                       next_uri:
                         type: string
+  /items/{id}:
+    parameters:
+    - name: id
+      description: itemId
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: get a single Bridge Item
+      operationId: getItem
+      security:
+      - ClientId:     []
+        ClientSecret: []
+      responses:
+        '200':
+          description: a single item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+    delete:
+      summary: Refresh a Bridge Item
+      operationId: deleteItem
+      security:
+      - ClientId:     []
+        ClientSecret: []
+      responses:
+        '202':
+          description: item has been refreshed
+  /items/{id}/refresh:
+    parameters:
+    - name: id
+      description: itemId
+      in: path
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: Refresh a Bridge Item
+      operationId: refreshItem
+      security:
+      - ClientId:     []
+        ClientSecret: []
+      responses:
+        '202':
+          description: item has been refreshed
   /connect/items/add/url:
     get:
       summary: Returns the URL to Bridge's Connect funnel for adding an item
@@ -611,6 +658,10 @@ components:
           type: string
         resource_uri:
           type: string
+          enum:
+          - bank
+          - item
+          - account
     Pagination:
       type: object
       properties:
@@ -706,3 +757,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Bank'
+    Item:
+      allOf:
+        - $ref: '#/components/schemas/Resource'
+        - type: object
+          properties:
+            id:
+              type: integer
+            status:
+              type: integer
+            bank:
+              $ref: '#/components/schemas/Resource'
+            accounts:
+              type: array
+              items:
+                $ref: '#/components/schemas/Resource'
