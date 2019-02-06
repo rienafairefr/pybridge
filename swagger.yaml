@@ -158,6 +158,27 @@ paths:
                 properties:
                   redirect_url:
                     type: string
+  /banks/{id}:
+    get:
+      parameters:
+        - name: id
+          description: bankId
+          in: path
+          required: true
+          schema:
+            type: integer
+      summary: get a single Bank
+      operationId: getBank
+      security:
+        - ClientId:     []
+          ClientSecret: []
+      responses:
+        '200':
+          description: a single Bank
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bank'
   /banks:
     get:
       summary: get All banks
@@ -627,16 +648,16 @@ components:
             status:
               type: integer
             item:
-              $ref: '#/components/schemas/Resource'
+              $ref: '#/components/schemas/IntegerIdResource'
             bank:
-              $ref: '#/components/schemas/Resource'
+              $ref: '#/components/schemas/IntegerIdResource'
             last_refresh_date:
               type: string
               format: date-time
             loan_details:
               $ref: '#/components/schemas/LoanDetails'
             saving_details:
-          $ref: '#/components/schemas/SavingDetails'
+              $ref: '#/components/schemas/SavingDetails'
     SavingsDetails:
       type: object
       properties:
@@ -737,11 +758,9 @@ components:
             $ref: '#/components/schemas/Bank'
     Bank:
       allOf:
-        - $ref: '#/components/schemas/Resource'
+        - $ref: '#/components/schemas/IntegerIdResource'
         - type: object
           properties:
-            id:
-              type: integer
             name:
               type: string
             country_code:
@@ -780,7 +799,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Bank'
-    AccountResource:
+    IntegerIdResource:
       allOf:
         - $ref: '#/components/schemas/Resource'
         - type: object
@@ -801,4 +820,4 @@ components:
             accounts:
               type: array
               items:
-                $ref: '#/components/schemas/AccountResource'
+                $ref: '#/components/schemas/IntegerIdResource'
