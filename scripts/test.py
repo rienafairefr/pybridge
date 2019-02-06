@@ -1,10 +1,8 @@
-import hashlib
 import os
 from datetime import datetime, timedelta
 
 import bridge
 from bridge import ApiClient
-from bridge.bridge_api import BridgeApi
 from bridge.configuration import Configuration
 from dotenv import load_dotenv, find_dotenv
 
@@ -16,7 +14,7 @@ config.api_key['client_id'] = os.environ['BRIDGE_ID']
 config.api_key['client_secret'] = os.environ['BRIDGE_SECRET']
 client = ApiClient(config)
 client.set_default_header('Bankin-Version', '2018-06-15')
-client.set_default_header('default_headers', 'pybridge Client' + pybridge.__version__)
+client.set_default_header('default_headers', 'pybridge Client' + bridge.__version__)
 client.set_default_header('Accept', '*/*')
 api = BridgeApi(client)
 

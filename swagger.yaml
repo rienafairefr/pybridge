@@ -128,6 +128,7 @@ paths:
       security:
       - ClientId:     []
         ClientSecret: []
+        AccessToken: []
       responses:
         '200':
           description: check Email Validation response
@@ -183,6 +184,28 @@ paths:
                         type: string
                       next_uri:
                         type: string
+  /items:
+    get:
+      summary: get Bridge items
+      operationId: getItems
+      security:
+        - ClientId: []
+          ClientSecret: []
+          Authorization: []
+      responses:
+        '200':
+          description: list of items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Item'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
   /items/{id}:
     parameters:
     - name: id
@@ -656,12 +679,12 @@ components:
       properties:
         resource_type:
           type: string
+          enum:
+            - bank
+            - item
+            - account
         resource_uri:
           type: string
-          enum:
-          - bank
-          - item
-          - account
     Pagination:
       type: object
       properties:
@@ -757,6 +780,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Bank'
+    AccountResource:
+      allOf:
+        - $ref: '#/components/schemas/Resource'
+        - type: object
+          properties:
+            id:
+              type: integer
     Item:
       allOf:
         - $ref: '#/components/schemas/Resource'
@@ -771,4 +801,4 @@ components:
             accounts:
               type: array
               items:
-                $ref: '#/components/schemas/Resource'
+                $ref: '#/components/schemas/AccountResource'
