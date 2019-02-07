@@ -19,7 +19,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/emptyBody'
-        required: false
+        required: true
       parameters:
         - in: query
           name: email
@@ -121,6 +121,27 @@ paths:
       responses:
         '204':
           description: delete User credentials response
+  /users/{uuid}/password:
+    parameters:
+      - in: path
+        required: true
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+    put:
+      summary: edit User password
+      operationId: editUserPassword
+      security:
+        - ClientId:     []
+          ClientSecret: []
+      responses:
+        '200':
+          description: edit user password response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
   /users/me/email/confirmation:
     get:
       summary: check Email Validation
