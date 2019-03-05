@@ -149,7 +149,7 @@ paths:
       security:
       - ClientId:     []
         ClientSecret: []
-        AccessToken: []
+        Authorization: []
       responses:
         '200':
           description: check Email Validation response
@@ -169,6 +169,7 @@ paths:
       security:
       - ClientId:     []
         ClientSecret: []
+        Authorization: []
       responses:
         '200':
           description: email Validation Url response
@@ -743,7 +744,7 @@ components:
           type: string
         expires_at:
           type: string
-          format: datetime
+          format: date-time
           example: "2016-05-06T11:08:25.040Z"
     User:
       allOf:
