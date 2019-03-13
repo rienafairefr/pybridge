@@ -270,14 +270,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/Item'
     delete:
-      summary: Refresh a Bridge Item
+      summary: delete a Bridge Item
       operationId: deleteItem
       security:
-      - ClientId:     []
-        ClientSecret: []
+      - ClientId:      []
+        ClientSecret:  []
+        Authorization: []
       responses:
         '202':
-          description: item has been refreshed
+          description: item has been delete
+  /items/{id}/refresh/status:
+    parameters:
+      - name: id
+        description: itemId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: get a Bridge Item refresh Status
+      operationId: refreshStatus
+      security:
+      - ClientId:      []
+        ClientSecret:  []
+        Authorization: []
+      responses:
+        '200':
+          description: item refresh status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshStatus'
   /items/{id}/refresh:
     parameters:
     - name: id
@@ -290,8 +313,14 @@ paths:
       summary: Refresh a Bridge Item
       operationId: refreshItem
       security:
-      - ClientId:     []
-        ClientSecret: []
+      - ClientId:      []
+        ClientSecret:  []
+        Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/emptyBody'
       responses:
         '202':
           description: item has been refreshed
@@ -421,6 +450,35 @@ paths:
       - ClientId:     []
         ClientSecret: []
         Authorization: []
+      parameters:
+      - in: query
+        name: before
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: since
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: until
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          default: 50
       responses:
         '200':
           description: list of transactions
@@ -618,7 +676,7 @@ components:
               type: integer
             description:
               type: string
-            raw_descrtiption:
+            raw_description:
               type: string
             amount:
               type: number
@@ -725,6 +783,7 @@ components:
             - bank
             - item
             - account
+            - category
         resource_uri:
           type: string
     Pagination:
@@ -842,3 +901,24 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/IntegerIdResource'
+    Mfa:
+      type: object
+      properties:
+        label:
+          type: string
+        is_numeric:
+          type: boolean
+    RefreshStatus:
+      type: object
+      properties:
+        status:
+          type: string
+        mfa:
+          $ref: '#/components/schemas/Mfa'
+        refreshed_at:
+          type: string
+          format: datetime
+        refreshed_accounts_count:
+          type: integer
+        total_accounts_count:
+          type: integer

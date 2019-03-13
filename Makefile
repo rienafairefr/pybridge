@@ -1,3 +1,4 @@
+.PHONY: clean
 
 TAG_NAME:=${TAG_NAME}
 TRAVIS_TAG:=${TRAVIS_TAG}
@@ -23,6 +24,8 @@ init:
 test:
 	pipenv run py.test tests
 
+clean:
+	rm -rf api
 
 api: swagger.yaml Makefile
 	docker run --rm --user `id -u`:`id -g` -v ${PWD}:/local openapitools/openapi-generator-cli:${OPENAPIGEN_VERSION} \
