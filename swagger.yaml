@@ -261,8 +261,9 @@ paths:
       summary: get a single Bridge Item
       operationId: getItem
       security:
-      - ClientId:     []
-        ClientSecret: []
+      - ClientId:      []
+        ClientSecret:  []
+        Authorization: []
       responses:
         '200':
           description: a single item
@@ -325,10 +326,36 @@ paths:
       responses:
         '202':
           description: item has been refreshed
+  /connect/items/edit/url:
+    get:
+      summary: Returns the URL to Bridge's Connect funnel for editing an item
+      operationId: editConnect
+      security:
+        - ClientId:     []
+          ClientSecret: []
+          Authorization: []
+      parameters:
+        - name: item_id
+          description: itemId
+          in: query
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: the redirect_url
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  redirect_url:
+                    type: string
   /connect/items/add/url:
     get:
       summary: Returns the URL to Bridge's Connect funnel for adding an item
-      operationId: connect
+      operationId: addConnect
       security:
       - ClientId:     []
         ClientSecret: []
@@ -467,13 +494,13 @@ paths:
         required: false
         schema:
           type: string
-          format: date
+          format: datetime
       - in: query
         name: until
         required: false
         schema:
           type: string
-          format: date
+          format: datetime
       - in: query
         name: limit
         required: false
@@ -513,13 +540,13 @@ paths:
         required: false
         schema:
           type: string
-          format: date
+          format: datetime
       - in: query
         name: until
         required: false
         schema:
           type: string
-          format: date
+          format: datetime
       - in: query
         name: limit
         required: false
@@ -588,13 +615,13 @@ paths:
         required: false
         schema:
           type: string
-          format: date
+          format: datetime
       - in: query
         name: until
         required: false
         schema:
           type: string
-          format: date
+          format: datetime
       - in: query
         name: limit
         required: false
