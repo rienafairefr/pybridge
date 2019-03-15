@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import bridge
 from bridge import ApiClient
@@ -40,7 +40,7 @@ config.api_key_prefix['authorization']= 'Bearer'
 # print(api.get_accounts())
 # print(api.get_account(12655088))
 
-print(api.get_updated_transactions(since=(datetime.utcnow() - timedelta(days=5)).isoformat()))
+print(api.get_updated_transactions(since=(datetime.now(timezone.utc) - timedelta(days=5)).isoformat()))
 
 # print(api.get_transaction(38000036919216))
 

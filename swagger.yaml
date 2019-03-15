@@ -494,13 +494,13 @@ paths:
         required: false
         schema:
           type: string
-          format: datetime
+          format: date-time
       - in: query
         name: until
         required: false
         schema:
           type: string
-          format: datetime
+          format: date-time
       - in: query
         name: limit
         required: false
@@ -540,13 +540,13 @@ paths:
         required: false
         schema:
           type: string
-          format: datetime
+          format: date-time
       - in: query
         name: until
         required: false
         schema:
           type: string
-          format: datetime
+          format: date-time
       - in: query
         name: limit
         required: false
@@ -615,13 +615,13 @@ paths:
         required: false
         schema:
           type: string
-          format: datetime
+          format: date-time
       - in: query
         name: until
         required: false
         schema:
           type: string
-          format: datetime
+          format: date-time
       - in: query
         name: limit
         required: false
@@ -714,7 +714,7 @@ components:
               format: date
             updated_at:
               type: string
-              format: datetime
+              format: date-time
             is_deleted:
               type: boolean
             category:
@@ -751,7 +751,7 @@ components:
             name:
               type: string
             balance:
-              type: integer
+              type: float
             status:
               type: integer
             item:
@@ -945,7 +945,7 @@ components:
           $ref: '#/components/schemas/Mfa'
         refreshed_at:
           type: string
-          format: datetime
+          format: date-time
         refreshed_accounts_count:
           type: integer
         total_accounts_count:
