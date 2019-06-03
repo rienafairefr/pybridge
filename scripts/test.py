@@ -1,9 +1,10 @@
 import os
-from datetime import datetime, timedelta, timezone
+from urllib.parse import urlparse, parse_qs, parse_qsl
 
 import bridge
 from bridge import ApiClient
 from bridge.configuration import Configuration
+from bridge.api.default_api import DefaultApi as BridgeApi
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
@@ -24,12 +25,12 @@ user = (os.environ['BRIDGE_USERNAME'], os.environ['BRIDGE_PASSWORD'])
 
 # print(api.create_user(*user, empty_body={}))
 
-authenticated = api.authenticate_user(*user, empty_body={})
+authenticated = api.authenticate_user(*user, body={})
 
 access_token = authenticated.access_token
 
 config.api_key['authorization'] = access_token
-config.api_key_prefix['authorization']= 'Bearer'
+config.api_key_prefix['authorization'] = 'Bearer'
 
 # print(api.connect())
 
@@ -40,7 +41,18 @@ config.api_key_prefix['authorization']= 'Bearer'
 # print(api.get_accounts())
 # print(api.get_account(12655088))
 
-print(api.get_updated_transactions(since=(datetime.now(timezone.utc) - timedelta(days=5)).isoformat()))
+# print(api.get_updated_transactions(since=(datetime.now(timezone.utc) - timedelta(days=5)).isoformat()))
 
+
+def unpaginate(func, *args, **kwargs):
+    data = func(*args, **kwargs)
+    print(len(data.resources))
+    if data.pagination.next_uri:
+        parsed = urlparse(data.pagination.next_uri)
+        kwargs.update(dict(parse_qsl(parsed.query)))
+        data.resources.extend(unpaginate(func, *args, **kwargs).resources)
+    return data
+
+banks = unpaginate(api.get_all_banks)
 # print(api.get_transaction(38000036919216))
-
+pass

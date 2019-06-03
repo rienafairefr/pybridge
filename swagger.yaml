@@ -203,6 +203,23 @@ paths:
                 $ref: '#/components/schemas/Bank'
   /banks:
     get:
+      parameters:
+      - in: query
+        name: before
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          default: 50
       summary: get All banks
       operationId: getAllBanks
       security:
@@ -214,19 +231,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  resources:
-                    type: array
-                    items:
-                      $ref : '#/components/schemas/ParentBanks'
-                  pagination:
-                    type: object
-                    properties:
-                      previous_uri:
-                        type: string
-                      next_uri:
-                        type: string
+                $ref: '#/components/schemas/ListofBanks'
   /items:
     get:
       summary: get Bridge items
@@ -490,6 +495,12 @@ paths:
         schema:
           type: string
       - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          default: 50
+      - in: query
         name: since
         required: false
         schema:
@@ -501,12 +512,6 @@ paths:
         schema:
           type: string
           format: date-time
-      - in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-          default: 50
       responses:
         '200':
           description: list of transactions
@@ -812,6 +817,7 @@ components:
             - item
             - account
             - category
+            - user
         resource_uri:
           type: string
     Pagination:
@@ -864,6 +870,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Bank'
+    ListofBanks:
+      type: object
+      properties:
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankResource'
+        pagination:
+          type: object
+          properties:
+            previous_uri:
+              type: string
+            next_uri:
+              type: string
+    BankResource:
+      type: object
+      properties:
+        country_code:
+          type: string
+        parent_banks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParentBank'
     Bank:
       allOf:
         - $ref: '#/components/schemas/IntegerIdResource'
@@ -894,19 +923,6 @@ components:
           type: integer
     emptyBody:
       type: object
-    ParentBanks:
-      type: object
-      properties:
-        name:
-          type: string
-          example: 'BNP'
-        logo_url:
-          type: string
-          example: 'https://web.bankin.com/img/banks-logo/350_bnp.png'
-        banks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Bank'
     IntegerIdResource:
       allOf:
         - $ref: '#/components/schemas/Resource'
