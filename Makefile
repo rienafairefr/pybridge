@@ -12,7 +12,7 @@ ifdef VERSION
 
 	cd api && python setup.py sdist bdist_wheel
 
-	twine upload -u ${PYPI_USER} -p ${PYPI_PASSWORD} api/dist/*
+	twine upload -u @token -p ${PYPI_TOKEN} api/dist/*
 else
 	@echo "not tagged"
 endif
