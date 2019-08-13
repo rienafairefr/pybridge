@@ -12,17 +12,10 @@ ifdef VERSION
 
 	cd api && python setup.py sdist bdist_wheel
 
-	twine upload -u @token -p ${PYPI_TOKEN} api/dist/*
+	pipenv run twine upload -u @token -p ${PYPI_TOKEN} api/dist/*
 else
 	@echo "not tagged"
 endif
-
-init:
-	pip install pipenv
-	pipenv install --dev
-
-test:
-	pipenv run py.test tests
 
 clean:
 	rm -rf api
