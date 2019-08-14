@@ -74,3 +74,4 @@ api/*/
 !api/.openapi-generator-ignore
 .env
 .openapi-generator-ignore
+Pipfile.lock
