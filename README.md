@@ -1,4 +1,4 @@
-![](https://github.com/rienafairefr/pybridgeapi/workflows/Test%20Python%20package/badge.svg)
+![](https://github.com/rienafairefr/pybridgeapi/workflows/Python%20package/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/rienafairefr/pybridgeapi/badge.svg?branch=master)](https://coveralls.io/github/rienafairefr/pybridgeapi?branch=master)
 
 # pybridgeapi
