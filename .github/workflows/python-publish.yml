@@ -1,6 +1,9 @@
 name: Publish Python package
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 jobs:
   build:
@@ -13,9 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/bin/filter@master
-      with:
-        args: branch 'master'
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
