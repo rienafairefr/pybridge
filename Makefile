@@ -1,21 +1,7 @@
 .PHONY: clean
 
-TAG_NAME:=${TAG_NAME}
-TRAVIS_TAG:=${TRAVIS_TAG}
-TRAVIS_BRANCH:=${TRAVIS_BRANCH}
-VERSION ?= $(if $(TRAVIS_TAG),$(TRAVIS_TAG),$(if $(TAG_NAME),$(TAG_NAME),dev))
+VERSION ?= $(shell pipenv run python -c "from setuptools_scm import get_version;print(get_version())")
 OPENAPIGEN_VERSION ?= v4.0.0
-
-deploy_pypi:
-ifdef VERSION
-	rm -rf dist
-
-	cd api && python setup.py sdist bdist_wheel
-
-	pipenv run twine upload -u @token -p ${PYPI_TOKEN} api/dist/*
-else
-	@echo "not tagged"
-endif
 
 clean:
 	rm -rf api
