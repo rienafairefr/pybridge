@@ -1,7 +1,7 @@
 .PHONY: clean
 
 VERSION ?= $(shell pipenv run python -c "from setuptools_scm import get_version;print(get_version())")
-OPENAPIGEN_VERSION ?= v4.0.0
+OPENAPIGEN_VERSION ?= v4.2.3
 
 clean:
 	rm -rf api
