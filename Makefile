@@ -7,11 +7,11 @@ clean:
 	rm -rf api
 
 docker_image: $(wildcard generator/**/*) $(wildcard generator/*)
-	docker build -t custom-codegen generator
+	docker build -t pybridgeapi-custom-codegen generator
 
-api: swagger.yaml Makefile
-	docker run --rm --user `id -u`:`id -g` -v ${PWD}:/local custom-codegen generator \
-	           generate -i /local/swagger.yaml \
+api: openapi.yaml Makefile docker_image $(wildcard templates/**/*) $(wildcard templates/*)
+	docker run --rm --user `id -u`:`id -g` -v ${PWD}:/local pybridgeapi-custom-codegen \
+	           generate -i /local/openapi.yaml \
 	           --git-user-id rienafairefr \
 	           --git-repo-id pybridgeapi \
 	           -t /local/templates \
