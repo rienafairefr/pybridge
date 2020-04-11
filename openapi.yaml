@@ -756,7 +756,8 @@ components:
             name:
               type: string
             balance:
-              type: float
+              type: number
+              format: float
             status:
               type: integer
             item:
@@ -769,7 +770,7 @@ components:
             loan_details:
               $ref: '#/components/schemas/LoanDetails'
             saving_details:
-              $ref: '#/components/schemas/SavingDetails'
+              $ref: '#/components/schemas/SavingsDetails'
     SavingsDetails:
       type: object
       properties:
