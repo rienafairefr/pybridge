@@ -736,7 +736,7 @@ components:
               example: 79c8961c-bdf7-11e5-88a3-4f2c2aec0665
             email:
               type: string
-        - $ref: '#/components/schemas/Response'
+        - $ref: '#/components/schemas/Resource'
     AccountResources:
       type: object
       properties:
