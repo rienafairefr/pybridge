@@ -713,7 +713,7 @@ components:
               type: string
             amount:
               type: number
-              format: double
+              format: float
             date:
               type: string
               format: date
@@ -779,10 +779,10 @@ components:
           format: date
         interest_rate:
           type: number
-          format: double
+          format: float
         ceiling:
           type: number
-          format: dbouel
+          format: float
     LoanDetails:
       type: object
       properties:
@@ -799,7 +799,7 @@ components:
           format: date
         interest_rate:
           type: number
-          format: double
+          format: float
         type:
           type: string
         borrowed_capital:
