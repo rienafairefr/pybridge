@@ -15,7 +15,7 @@ api: openapi.yaml Makefile docker_image $(wildcard templates/**/*) $(wildcard te
 	           --git-user-id rienafairefr \
 	           --git-repo-id pybridgeapi \
 	           -t /local/templates \
-	           -g python -o /local/api \
+	           -g eu.rienafairefr.customcodegen.PythonCustomCodegen -o /local/api \
 	           -p packageName=bridge \
 	           -p projectName=pybridgeapi \
 	           -p packageVersion="$(VERSION)" \
